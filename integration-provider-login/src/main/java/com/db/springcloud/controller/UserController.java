@@ -1,5 +1,6 @@
 package com.db.springcloud.controller;
 
+import com.db.springcloud.commonutils.JwtUtils;
 import com.db.springcloud.entities.CommonResult;
 import com.db.springcloud.entities.User;
 import com.db.springcloud.service.UserService;
@@ -12,6 +13,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
+@CrossOrigin
 @Slf4j
 public class UserController {
 
@@ -54,31 +56,34 @@ public class UserController {
     }
 
     @PostMapping(value = "/system/user/login")
-    public CommonResult userLogin(@RequestBody User user,String cpacha, HttpServletRequest request){
+    public CommonResult userLogin(@RequestBody User user){
         User userInfo = userService.findByUsername(user.getUsername());
         System.out.println(user.getUsername());
-        Object loginCpacha = request.getSession().getAttribute("loginCpacha");
+        //Object loginCpacha = request.getSession().getAttribute("loginCpacha");
 
         if (userInfo!=null){
             if (!StringUtils.isEmpty(user.getPassword())){
-                if (!StringUtils.isEmpty(cpacha)){
                     if(user.getPassword().equals(userInfo.getPassword())){
-                        if (cpacha.toUpperCase().equals(loginCpacha.toString().toUpperCase())){
-                            return new CommonResult(200,"登陆成功，serverPort："+serverPort,userInfo.getUsername()+"--"+cpacha);
-                        }else {
-                            return new CommonResult(401,"登录失败，验证码错误，serverPort："+serverPort,null);
-                        }
+                        //将用户信息放入token字符串中
+                        String token = JwtUtils.getJwtToken(userInfo.getUid(),userInfo.getUsername());
+                        return new CommonResult(200,"登陆成功，serverPort："+serverPort,token);
                     }else{
                         return new CommonResult(401,"登录失败，密码或用户名错误错误，serverPort："+serverPort,null);
                     }
-                }else{
-                    return new CommonResult(401,"登陆失败，验证码为空请填写验证码，serverPort："+serverPort,null);
-                }
             }else {
                 return new CommonResult(401,"登录失败，密码为空请填写正确密码，serverPort："+serverPort,null);
             }
         }else {
             return new CommonResult(401,"登陆失败，该账户不存在，serverPort："+serverPort, null);
         }
+    }
+
+    //根据token获取用户信息
+    @GetMapping(value = "/system/user/getUserInfo")
+    public CommonResult getUserInfo(HttpServletRequest request){
+        //调用jwt工具类的方法。根据request对象获取头信息，返回用户uid
+        String memberId = JwtUtils.getMemberIdByJwtToken(request);
+        User user = userService.findById(memberId);
+        return new CommonResult(200,"获取用户信息成功,serverPort:"+serverPort,user);
     }
 }

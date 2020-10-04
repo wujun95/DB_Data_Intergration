@@ -11,6 +11,7 @@ import java.util.Map;
 public interface UserDao {
     public User findByUsername(@Param("username") String username);
     public int addUser(User user);
+    public User findById(@Param("uid") String uid);
 //    public int edit(User user);
 //    public int editPassword(User user);
 //    public int delete(String ids);

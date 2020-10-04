@@ -13,6 +13,7 @@ public class UserServiceImpl implements UserService {
     @Resource
     private UserDao userDao;
 
+
     @Override
     public User findByUsername(String username) {
         return userDao.findByUsername(username);
@@ -21,5 +22,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public int addUser(User user) {
         return userDao.addUser(user);
+    }
+
+    @Override
+    public User findById(String uid) {
+        return userDao.findById(uid);
     }
 }
