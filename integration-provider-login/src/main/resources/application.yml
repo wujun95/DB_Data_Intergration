@@ -4,13 +4,13 @@ server:
 
 spring:
   application:
-    name: cloud-u  ser-service
+    name: cloud-user-service
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource            # 当前数据源操作类型
-    driver-class-name: com.mysql.cj.jdbc.Driver             # mysql驱动包
-    url: jdbc:mysql://localhost:3306/data_integration?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+    driver-class-name: com.mysql.jdbc.Driver             # mysql驱动包
+    url: jdbc:mysql://localhost:3306/test
     username: root
-    password: 110533
+    password: root
 
 mybatis:
   mapperLocations: classpath:mapper/*.xml

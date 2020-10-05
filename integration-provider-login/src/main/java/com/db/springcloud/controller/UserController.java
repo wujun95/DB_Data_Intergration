@@ -65,7 +65,7 @@ public class UserController {
             if (!StringUtils.isEmpty(user.getPassword())){
                     if(user.getPassword().equals(userInfo.getPassword())){
                         //将用户信息放入token字符串中
-                        String token = JwtUtils.getJwtToken(userInfo.getUid(),userInfo.getUsername());
+                        String token = JwtUtils.getJwtToken(userInfo.getId(),userInfo.getUsername());
                         return new CommonResult(200,"登陆成功，serverPort："+serverPort,token);
                     }else{
                         return new CommonResult(401,"登录失败，密码或用户名错误错误，serverPort："+serverPort,null);
@@ -81,7 +81,7 @@ public class UserController {
     //根据token获取用户信息
     @GetMapping(value = "/system/user/getUserInfo")
     public CommonResult getUserInfo(HttpServletRequest request){
-        //调用jwt工具类的方法。根据request对象获取头信息，返回用户uid
+        //调用jwt工具类的方法。根据request对象获取头信息，返回用户id
         String memberId = JwtUtils.getMemberIdByJwtToken(request);
         User user = userService.findById(memberId);
         return new CommonResult(200,"获取用户信息成功,serverPort:"+serverPort,user);

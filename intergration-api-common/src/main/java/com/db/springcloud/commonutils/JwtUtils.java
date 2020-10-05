@@ -72,7 +72,7 @@ public class JwtUtils {
     }
 
     /**
-     * 根据token字符串获取用户uid
+     * 根据token字符串获取用户id
      * @param request
      * @return
      */
@@ -81,6 +81,6 @@ public class JwtUtils {
         if(StringUtils.isEmpty(jwtToken)) return "";
         Jws<Claims> claimsJws = Jwts.parser().setSigningKey(APP_SECRET).parseClaimsJws(jwtToken);
         Claims claims = claimsJws.getBody();
-        return (String)claims.get("uid");
+        return (String)claims.get("id");
     }
 }

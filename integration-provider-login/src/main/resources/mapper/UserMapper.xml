@@ -16,9 +16,8 @@
     <select id="findByUsername" parameterType="String" resultMap="BaseResultMap">
         select * from user where username=#{username};
     </select>
-
     <select id="findById" parameterType="String" resultMap="BaseResultMap">
-        select * from user where uid = #{uid};
+        select * from user where id = #{id};
     </select>
 
 </mapper>
