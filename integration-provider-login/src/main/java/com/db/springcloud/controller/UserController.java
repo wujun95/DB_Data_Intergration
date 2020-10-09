@@ -59,8 +59,6 @@ public class UserController {
     public CommonResult userLogin(@RequestBody User user){
         User userInfo = userService.findByUsername(user.getUsername());
         System.out.println(user.getUsername());
-        //Object loginCpacha = request.getSession().getAttribute("loginCpacha");
-
         if (userInfo!=null){
             if (!StringUtils.isEmpty(user.getPassword())){
                     if(user.getPassword().equals(userInfo.getPassword())){

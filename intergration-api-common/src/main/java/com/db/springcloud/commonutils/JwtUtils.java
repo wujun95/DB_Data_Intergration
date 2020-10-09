@@ -9,17 +9,14 @@ import org.springframework.util.StringUtils;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
-/**
- * @author wujun
- * @create 2020-10-04 14:42
- */
+
 public class JwtUtils {
     //常量
     public static final long EXPIRE = 1000 * 60 * 60 * 24; //token过期时间
     public static final String APP_SECRET = "ukc8BDbRigUDaY6pZFfWus2jZWLPHO"; //秘钥
 
     //生成token字符串的方法
-    public static String getJwtToken(String id, String username){
+    public static String getJwtToken(String uid, String username){
 
         String JwtToken = Jwts.builder()
                 .setHeaderParam("typ", "JWT")
@@ -29,7 +26,7 @@ public class JwtUtils {
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRE))
 
-                .claim("id", id)  //设置token主体部分 ，存储用户信息
+                .claim("uid", uid)  //设u置token主体部分 ，存储用户信息
                 .claim("username", username)
 
                 .signWith(SignatureAlgorithm.HS256, APP_SECRET)
@@ -44,7 +41,8 @@ public class JwtUtils {
      * @return
      */
     public static boolean checkToken(String jwtToken) {
-        if(StringUtils.isEmpty(jwtToken)) return false;
+        if(StringUtils.isEmpty(jwtToken))
+            {return false;}
         try {
             Jwts.parser().setSigningKey(APP_SECRET).parseClaimsJws(jwtToken);
         } catch (Exception e) {
@@ -62,7 +60,7 @@ public class JwtUtils {
     public static boolean checkToken(HttpServletRequest request) {
         try {
             String jwtToken = request.getHeader("token");
-            if(StringUtils.isEmpty(jwtToken)) return false;
+            if(StringUtils.isEmpty(jwtToken)) {return false;}
             Jwts.parser().setSigningKey(APP_SECRET).parseClaimsJws(jwtToken);
         } catch (Exception e) {
             e.printStackTrace();
@@ -78,7 +76,7 @@ public class JwtUtils {
      */
     public static String getMemberIdByJwtToken(HttpServletRequest request) {
         String jwtToken = request.getHeader("token");
-        if(StringUtils.isEmpty(jwtToken)) return "";
+        if(StringUtils.isEmpty(jwtToken)) {return "";}
         Jws<Claims> claimsJws = Jwts.parser().setSigningKey(APP_SECRET).parseClaimsJws(jwtToken);
         Claims claims = claimsJws.getBody();
         return (String)claims.get("id");
