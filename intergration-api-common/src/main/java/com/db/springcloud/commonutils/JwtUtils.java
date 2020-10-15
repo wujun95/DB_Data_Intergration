@@ -19,7 +19,7 @@ public class JwtUtils {
     public static final String APP_SECRET = "ukc8BDbRigUDaY6pZFfWus2jZWLPHO"; //秘钥
 
     //生成token字符串的方法
-    public static String getJwtToken(String id, String username){
+    public static String getJwtToken(Integer id, String username){
 
         String JwtToken = Jwts.builder()
                 .setHeaderParam("typ", "JWT")

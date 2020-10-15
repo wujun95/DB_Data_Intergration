@@ -1,0 +1,26 @@
+server:
+  port: 8002
+
+spring:
+  application:
+    name: cloud-data-display
+  datasource:
+    dynamic:
+      primary: master
+      datasource:
+        master:
+          url: jdbc:mysql://localhost:3306/display
+          username: root
+          password: root
+          driver-class-name: com.mysql.jdbc.Driver
+        slave_1:
+          url: jdbc:mysql://localhost:3306/test
+          username: root
+          password: root
+          driver-class-name: com.mysql.jdbc.Driver
+
+mybatis:
+  mapperLocations: classpath:mapper/*.xml
+  type-aliases-package: com.db.springcloud.entities   # 所有Entity别名类所在包
+
+

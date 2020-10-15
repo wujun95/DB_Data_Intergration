@@ -44,8 +44,8 @@ public class UserController {
      * @param username
      * @return
      */
-    @GetMapping(value = "/system/user/get/{username}")
-    public CommonResult getUserByName(@PathVariable("username") String username){
+    @GetMapping(value = "/system/user/get")
+    public CommonResult getUserByName(@RequestParam(value = "username") String username){
         User user= userService.findByUsername(username);
         log.info("***查询结果" + user);
         if (user!=null){

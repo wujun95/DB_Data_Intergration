@@ -9,14 +9,14 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>integration-provider-login</artifactId>
+    <artifactId>integeration-provider-userservice</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
-<!--        &lt;!&ndash; 连接池 &ndash;&gt;-->
+        <!--        &lt;!&ndash; 连接池 &ndash;&gt;-->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
@@ -71,5 +71,4 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
 </project>

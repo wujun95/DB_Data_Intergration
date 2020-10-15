@@ -12,6 +12,9 @@
   <modules>
     <module>intergration-api-common</module>
     <module>integration-provider-login</module>
+    <module>integer-data-display</module>
+      <module>integeration-provider-userservice</module>
+      <module>Integer-provider-datadisplay</module>
   </modules>
 
 
@@ -23,9 +26,10 @@
     <junit.version>4.12</junit.version>
     <log4j.version>1.2.17</log4j.version>
     <lombok.version>1.16.18</lombok.version>
-    <mysql.version>5.5.62</mysql.version>
+    <mysql.version>5.1.47</mysql.version>
     <druid.version>1.1.16</druid.version>
     <jwt.version>0.7.0</jwt.version>
+    <mybatis-puls.version>3.2.1</mybatis-puls.version>
 <!--    <mybatis.spring.boot.version>1.3.0</mybatis.spring.boot.version>-->
   </properties>
 
@@ -81,6 +85,12 @@
         <groupId>io.jsonwebtoken</groupId>
         <artifactId>jjwt</artifactId>
         <version>${jwt.version}</version>
+      </dependency>
+      <!-- 配置mybatis-plus-->
+      <dependency>
+        <groupId>com.baomidou</groupId>
+        <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
+        <version>${mybatis-puls.version}</version>
       </dependency>
       <dependency>
         <groupId>log4j</groupId>
